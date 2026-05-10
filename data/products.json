@@ -1,0 +1,74 @@
+[
+  {
+    "product_id": "FN-DRESS-001",
+    "title": "Ivory Satin Midi Dress",
+    "category": "Dress",
+    "colour": "Ivory",
+    "price": 189.95,
+    "description": "",
+    "care_instructions": "",
+    "size_guide_available": false,
+    "collection": "Winter Occasionwear",
+    "status": "draft"
+  },
+  {
+    "product_id": "FN-DRESS-002",
+    "title": "Emerald Wrap Maxi Dress",
+    "category": "Dress",
+    "colour": "Emerald",
+    "price": 219.95,
+    "description": "An elegant wrap maxi dress designed for evening occasions and refined seasonal styling.",
+    "care_instructions": "Cold gentle hand wash. Dry flat in shade.",
+    "size_guide_available": true,
+    "collection": "Winter Occasionwear",
+    "status": "draft"
+  },
+  {
+    "product_id": "FN-BLAZER-003",
+    "title": "Cream Tailored Longline Blazer",
+    "category": "Blazer",
+    "colour": "Cream",
+    "price": 249.95,
+    "description": "A polished longline blazer with structured tailoring for occasionwear and elevated workwear styling.",
+    "care_instructions": "Dry clean only.",
+    "size_guide_available": true,
+    "collection": "Winter Occasionwear",
+    "status": "draft"
+  },
+  {
+    "product_id": "FN-SKIRT-004",
+    "title": "Black Pleated Midi Skirt",
+    "category": "Skirt",
+    "colour": "Black",
+    "price": 139.95,
+    "description": "",
+    "care_instructions": "Cold machine wash with similar colours.",
+    "size_guide_available": true,
+    "collection": "Winter Occasionwear",
+    "status": "draft"
+  },
+  {
+    "product_id": "FN-TOP-005",
+    "title": "Champagne Satin Cami",
+    "category": "Top",
+    "colour": "Champagne",
+    "price": 89.95,
+    "description": "A soft satin cami designed for layering with tailored separates and evening pieces.",
+    "care_instructions": "",
+    "size_guide_available": false,
+    "collection": "Winter Occasionwear",
+    "status": "draft"
+  },
+  {
+    "product_id": "FN-COAT-006",
+    "title": "Camel Belted Wool Blend Coat",
+    "category": "Coat",
+    "colour": "Camel",
+    "price": 329.95,
+    "description": "A timeless belted coat designed for polished winter layering.",
+    "care_instructions": "Dry clean only.",
+    "size_guide_available": true,
+    "collection": "Winter Occasionwear",
+    "status": "draft"
+  }
+]

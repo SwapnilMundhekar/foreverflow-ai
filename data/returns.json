@@ -1,0 +1,56 @@
+[
+  {
+    "product_id": "FN-DRESS-001",
+    "return_rate_percent": 31,
+    "top_return_reason": "Runs small",
+    "customer_comments": [
+      "Beautiful dress but runs small around the waist.",
+      "I had to return because the fit was tighter than expected."
+    ]
+  },
+  {
+    "product_id": "FN-DRESS-002",
+    "return_rate_percent": 9,
+    "top_return_reason": "Changed mind",
+    "customer_comments": [
+      "Lovely colour and fit.",
+      "The wrap shape was flattering."
+    ]
+  },
+  {
+    "product_id": "FN-BLAZER-003",
+    "return_rate_percent": 14,
+    "top_return_reason": "Sleeves too long",
+    "customer_comments": [
+      "Great blazer but sleeves were longer than expected.",
+      "Beautiful structure but needed tailoring."
+    ]
+  },
+  {
+    "product_id": "FN-SKIRT-004",
+    "return_rate_percent": 6,
+    "top_return_reason": "Changed mind",
+    "customer_comments": [
+      "Good everyday skirt.",
+      "Fit was accurate."
+    ]
+  },
+  {
+    "product_id": "FN-TOP-005",
+    "return_rate_percent": 22,
+    "top_return_reason": "Fabric delicate",
+    "customer_comments": [
+      "Nice top but fabric felt delicate.",
+      "Returned because care instructions were unclear."
+    ]
+  },
+  {
+    "product_id": "FN-COAT-006",
+    "return_rate_percent": 11,
+    "top_return_reason": "Too warm",
+    "customer_comments": [
+      "Beautiful coat.",
+      "Good quality and accurate fit."
+    ]
+  }
+]
