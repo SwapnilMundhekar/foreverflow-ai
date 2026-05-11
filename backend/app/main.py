@@ -219,9 +219,50 @@ def run_collection_readiness(request: ReadinessRequest) -> Dict[str, Any]:
             target_products.append(product)
 
     agent_results = []
+    approval_queue = []
     total_issues = 0
     high_risk_items = 0
     approval_required = 0
+    auto_approved = 0
+
+    workflow_timeline = [
+        {
+            "step": 1,
+            "name": "Load Shopify collection data",
+            "status": "completed",
+            "description": "Loaded product records from Shopify-style mock data."
+        },
+        {
+            "step": 2,
+            "name": "Retrieve policy evidence",
+            "status": "completed",
+            "description": "Loaded trusted brand, return, size guide, and campaign policy documents."
+        },
+        {
+            "step": 3,
+            "name": "Run product content checks",
+            "status": "completed",
+            "description": "Checked product copy, care instructions, size guide, colour, and category completeness."
+        },
+        {
+            "step": 4,
+            "name": "Run inventory and size risk checks",
+            "status": "completed",
+            "description": "Checked low stock risk across key fashion sizes."
+        },
+        {
+            "step": 5,
+            "name": "Run returns intelligence checks",
+            "status": "completed",
+            "description": "Reviewed return rates, return reasons, and customer comments."
+        },
+        {
+            "step": 6,
+            "name": "Apply governance rules",
+            "status": "completed",
+            "description": "Decided whether each product can be approved automatically or requires human review."
+        }
+    ]
 
     for product in target_products:
         product_id = product.get("product_id")
@@ -242,6 +283,20 @@ def run_collection_readiness(request: ReadinessRequest) -> Dict[str, Any]:
         if governance["decision"] == "human_approval_required":
             approval_required += 1
 
+            approval_queue.append(
+                {
+                    "approval_id": f"APPROVAL-{product_id}",
+                    "product_id": product_id,
+                    "title": product.get("title"),
+                    "requested_action": "Review product before campaign promotion",
+                    "risk_level": "high" if return_risk["risk_level"] == "high" or inventory_risk["risk_level"] == "high" else "medium",
+                    "reasons": governance["risk_reasons"],
+                    "recommended_decision": "review_required"
+                }
+            )
+        else:
+            auto_approved += 1
+
         agent_results.append(
             {
                 "product_id": product_id,
@@ -260,6 +315,22 @@ def run_collection_readiness(request: ReadinessRequest) -> Dict[str, Any]:
 
     estimated_hours_saved = round(len(target_products) * 0.35 + total_issues * 0.25 + approval_required * 0.15, 2)
 
+    if len(target_products) > 0:
+        approval_rate_percent = round((approval_required / len(target_products)) * 100, 2)
+        auto_approval_rate_percent = round((auto_approved / len(target_products)) * 100, 2)
+    else:
+        approval_rate_percent = 0
+        auto_approval_rate_percent = 0
+
+    business_impact = {
+        "estimated_hours_saved": estimated_hours_saved,
+        "manual_checks_automated": len(target_products) * 4,
+        "approval_rate_percent": approval_rate_percent,
+        "auto_approval_rate_percent": auto_approval_rate_percent,
+        "return_risk_warnings": high_risk_items,
+        "content_issues_detected": total_issues
+    }
+
     return {
         "workflow": "New Collection Launch Readiness",
         "collection_name": request.collection_name,
@@ -267,7 +338,10 @@ def run_collection_readiness(request: ReadinessRequest) -> Dict[str, Any]:
         "issues_found": total_issues,
         "high_risk_items": high_risk_items,
         "approval_required": approval_required,
-        "estimated_hours_saved": estimated_hours_saved,
+        "auto_approved": auto_approved,
+        "business_impact": business_impact,
+        "workflow_timeline": workflow_timeline,
+        "approval_queue": approval_queue,
         "rag_evidence": build_rag_evidence(),
         "agent_results": agent_results
     }
