@@ -1,0 +1,36 @@
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+id_rsa
+id_rsa.pub
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
