@@ -5,6 +5,7 @@ from typing import Any, Dict, List
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from .connectors.enterprise_connectors import get_integration_health
 from .rag.simple_retriever import build_grounded_answer, retrieve_policy_evidence
 
 
@@ -351,3 +352,8 @@ def ask_policy(request: AskPolicyRequest) -> Dict[str, Any]:
         "answer": answer,
         "evidence": evidence
     }
+
+
+@app.get("/integration-health")
+def integration_health() -> Dict[str, Any]:
+    return get_integration_health()
