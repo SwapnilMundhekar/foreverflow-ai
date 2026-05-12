@@ -5,122 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ForeverFlow AI Dashboard</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f4f1;
-      color: #1f1f1f;
-    }
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px;
-    }
-    .hero {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      margin: 0;
-      font-size: 40px;
-    }
-    .hero p {
-      max-width: 850px;
-      line-height: 1.6;
-      color: #555;
-    }
-    .button {
-      border: none;
-      background: #1f1f1f;
-      color: #ffffff;
-      padding: 14px 22px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 700;
-    }
-    .button:hover {
-      opacity: 0.9;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-    }
-    .metric {
-      font-size: 34px;
-      font-weight: 800;
-      margin-top: 8px;
-    }
-    .label {
-      color: #777;
-      font-size: 14px;
-    }
-    .section {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      margin-bottom: 24px;
-    }
-    .section h2 {
-      margin-top: 0;
-    }
-    .timeline-item, .approval-item, .product-item, .evidence-item {
-      border: 1px solid #eee;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
-      background: #fcfbfa;
-    }
-    .badge {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      background: #eee;
-      margin-right: 8px;
-    }
-    .high {
-      background: #ffe0e0;
-    }
-    .medium {
-      background: #fff0c2;
-    }
-    .low, .ready {
-      background: #dff5e4;
-    }
-    .review {
-      background: #ffe8d6;
-    }
-    .muted {
-      color: #666;
-      line-height: 1.5;
-    }
-    pre {
-      white-space: pre-wrap;
-      background: #1f1f1f;
-      color: #ffffff;
-      padding: 18px;
-      border-radius: 16px;
-      overflow-x: auto;
-    }
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f7f4f1; color: #1f1f1f; }
+    .page { max-width: 1200px; margin: 0 auto; padding: 32px; }
+    .hero { background: #ffffff; border-radius: 24px; padding: 32px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 24px; }
+    .hero h1 { margin: 0; font-size: 42px; }
+    .hero p { max-width: 900px; line-height: 1.6; color: #555; }
+    .button { border: none; background: #1f1f1f; color: #ffffff; padding: 14px 22px; border-radius: 999px; cursor: pointer; font-size: 15px; font-weight: 700; margin-right: 8px; }
+    .button:hover { opacity: 0.9; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .card { background: #ffffff; border-radius: 20px; padding: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .metric { font-size: 34px; font-weight: 800; margin-top: 8px; }
+    .label { color: #777; font-size: 14px; }
+    .section { background: #ffffff; border-radius: 24px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); margin-bottom: 24px; }
+    .section h2 { margin-top: 0; }
+    .timeline-item, .approval-item, .product-item, .evidence-item { border: 1px solid #eee; border-radius: 16px; padding: 16px; margin-bottom: 12px; background: #fcfbfa; }
+    .badge { display: inline-block; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: #eee; margin-right: 8px; }
+    .high { background: #ffe0e0; }
+    .medium { background: #fff0c2; }
+    .low, .ready { background: #dff5e4; }
+    .review { background: #ffe8d6; }
+    .muted { color: #666; line-height: 1.5; }
+    textarea { width: 100%; min-height: 90px; border: 1px solid #ddd; border-radius: 16px; padding: 14px; font-size: 15px; box-sizing: border-box; margin-bottom: 12px; }
+    pre { white-space: pre-wrap; background: #1f1f1f; color: #ffffff; padding: 18px; border-radius: 16px; overflow-x: auto; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -134,6 +41,16 @@
     </div>
 
     <div class="grid" id="metrics"></div>
+
+    <div class="section">
+      <h2>Policy RAG Assistant</h2>
+      <p class="muted">Ask a policy or campaign-readiness question. The backend retrieves evidence from the local brand, return, size guide, and campaign policy files.</p>
+      <textarea id="policyQuestion">Should this product be promoted if core sizes are low and return risk is high?</textarea>
+      <button class="button" onclick="askPolicy()">Ask Policy RAG</button>
+      <p id="policyStatus" class="muted"></p>
+      <div id="policyAnswer" class="muted"></div>
+      <div id="policyEvidence"></div>
+    </div>
 
     <div class="section">
       <h2>Workflow Timeline</h2>
@@ -165,18 +82,13 @@
     async function runWorkflow() {
       const status = document.getElementById('status');
       status.textContent = 'Running multi-agent collection readiness workflow...';
-
       try {
         const response = await fetch('http://127.0.0.1:8000/run-collection-readiness', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ collection_name: 'Winter Occasionwear' })
         });
-
-        if (!response.ok) {
-          throw new Error('Backend returned status ' + response.status);
-        }
-
+        if (!response.ok) { throw new Error('Backend returned status ' + response.status); }
         const data = await response.json();
         status.textContent = 'Workflow completed successfully.';
         renderMetrics(data);
@@ -190,6 +102,32 @@
       }
     }
 
+    async function askPolicy() {
+      const question = document.getElementById('policyQuestion').value;
+      const status = document.getElementById('policyStatus');
+      status.textContent = 'Retrieving policy evidence...';
+      try {
+        const response = await fetch('http://127.0.0.1:8000/ask-policy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: question, top_k: 4 })
+        });
+        if (!response.ok) { throw new Error('Backend returned status ' + response.status); }
+        const data = await response.json();
+        status.textContent = 'Policy evidence retrieved.';
+        document.getElementById('policyAnswer').innerHTML = '<p><strong>Answer:</strong> ' + data.answer + '</p>';
+        document.getElementById('policyEvidence').innerHTML = data.evidence.map(item => `
+          <div class="evidence-item">
+            <span class="badge">Score: ${item.score}</span>
+            <strong>${item.source}</strong>
+            <p class="muted">${item.evidence}</p>
+          </div>
+        `).join('');
+      } catch (error) {
+        status.textContent = 'Error: ' + error.message + '. Make sure /ask-policy exists and FastAPI is running.';
+      }
+    }
+
     function renderMetrics(data) {
       const impact = data.business_impact || {};
       const metrics = [
@@ -200,7 +138,6 @@
         ['Auto Approved', data.auto_approved],
         ['Estimated Hours Saved', impact.estimated_hours_saved]
       ];
-
       document.getElementById('metrics').innerHTML = metrics.map(item => `
         <div class="card">
           <div class="label">${item[0]}</div>
@@ -224,7 +161,6 @@
         document.getElementById('approvals').innerHTML = '<p class="muted">No approval items. All products are ready.</p>';
         return;
       }
-
       document.getElementById('approvals').innerHTML = items.map(item => `
         <div class="approval-item">
           <span class="badge ${item.risk_level}">${item.risk_level.toUpperCase()}</span>
