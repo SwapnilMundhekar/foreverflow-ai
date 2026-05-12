@@ -5,6 +5,7 @@ from typing import Any, Dict, List
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from .rag.simple_retriever import build_grounded_answer, retrieve_policy_evidence
 
 
 app = FastAPI(
@@ -25,6 +26,12 @@ app.add_middleware(
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
+
+
+
+class AskPolicyRequest(BaseModel):
+    question: str
+    top_k: int = 4
 
 class ReadinessRequest(BaseModel):
     collection_name: str = "Winter Occasionwear"
@@ -183,31 +190,9 @@ def generate_campaign_suggestion(product: Dict[str, Any], return_risk: Dict[str,
     }
 
 
-def build_rag_evidence() -> List[Dict[str, str]]:
-    brand_voice = load_text("data/policies/brand_voice_guide.md")
-    return_policy = load_text("data/policies/return_policy.md")
-    size_guide = load_text("data/policies/size_guide.md")
-    campaign_brief = load_text("data/policies/campaign_brief.md")
-
-    return [
-        {
-            "source": "brand_voice_guide.md",
-            "evidence": brand_voice.replace("\n", " ")[:220]
-        },
-        {
-            "source": "return_policy.md",
-            "evidence": return_policy.replace("\n", " ")[:220]
-        },
-        {
-            "source": "size_guide.md",
-            "evidence": size_guide.replace("\n", " ")[:220]
-        },
-        {
-            "source": "campaign_brief.md",
-            "evidence": campaign_brief.replace("\n", " ")[:220]
-        }
-    ]
-
+def build_rag_evidence() -> List[Dict[str, Any]]:
+    question = "What policies matter before promoting a fashion product with content gaps, return risk, or low stock?"
+    return retrieve_policy_evidence(question, top_k=4)
 
 @app.get("/")
 def home() -> Dict[str, str]:
@@ -354,4 +339,15 @@ def run_collection_readiness(request: ReadinessRequest) -> Dict[str, Any]:
         "approval_queue": approval_queue,
         "rag_evidence": build_rag_evidence(),
         "agent_results": agent_results
+    }
+
+@app.post("/ask-policy")
+def ask_policy(request: AskPolicyRequest) -> Dict[str, Any]:
+    evidence = retrieve_policy_evidence(request.question, request.top_k)
+    answer = build_grounded_answer(request.question, evidence)
+
+    return {
+        "question": request.question,
+        "answer": answer,
+        "evidence": evidence
     }
