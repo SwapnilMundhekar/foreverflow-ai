@@ -13,6 +13,7 @@ An end-to-end AI automation showcase for fashion retail digital and eCommerce te
 [![Shopify](https://img.shields.io/badge/Shopify-Centred%20Workflow-7AB55C.svg)](#enterprise-integration-layer)
 [![Azure](https://img.shields.io/badge/Azure-Aligned%20Architecture-0078D4.svg)](#azure-aligned-target-architecture)
 [![Status](https://img.shields.io/badge/Status-Active%20Prototype-brightgreen.svg)](#current-status)
+[![ForeverFlow AI CI](https://github.com/SwapnilMundhekar/foreverflow-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/SwapnilMundhekar/foreverflow-ai/actions/workflows/ci.yml)
 
 </div>
 
