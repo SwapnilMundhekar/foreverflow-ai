@@ -270,6 +270,17 @@ Planned screenshot placeholders:
 
 ---
 
+### Planned Dashboard Screenshots
+
+| Screenshot | Description |
+|---|---|
+| `dashboard-overview.png` | Main dashboard with business impact cards |
+| `workflow-timeline.png` | Agent workflow timeline |
+| `approval-queue.png` | Human approval queue for risky products |
+| `product-agent-results.png` | Product-level agent results and governance decisions |
+| `rag-policy-assistant.png` | Policy RAG Assistant with grounded evidence |
+| `integration-health.png` | Enterprise integration adapter status |
+
 ## Business Impact Metrics
 
 Current sample result for the mock `Winter Occasionwear` collection:
