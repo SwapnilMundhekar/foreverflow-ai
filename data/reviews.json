@@ -1,0 +1,62 @@
+[
+  {
+    "product_id": "FN-DRESS-001",
+    "title": "Ivory Satin Midi Dress",
+    "reviews": [
+      "Beautiful dress but runs small around the waist.",
+      "The satin looks premium but the fit was tighter than expected.",
+      "I loved the colour but had to size up.",
+      "Great for events but the product page should mention fitted waist."
+    ]
+  },
+  {
+    "product_id": "FN-DRESS-002",
+    "title": "Emerald Wrap Maxi Dress",
+    "reviews": [
+      "Lovely colour and flattering wrap shape.",
+      "True to size and comfortable.",
+      "Perfect for evening occasions.",
+      "The fabric drapes nicely."
+    ]
+  },
+  {
+    "product_id": "FN-BLAZER-003",
+    "title": "Cream Tailored Longline Blazer",
+    "reviews": [
+      "Beautiful blazer but sleeves are too long.",
+      "The structure is premium but I needed tailoring.",
+      "Looks polished for workwear.",
+      "Would be better if sleeve length was mentioned."
+    ]
+  },
+  {
+    "product_id": "FN-SKIRT-004",
+    "title": "Black Pleated Midi Skirt",
+    "reviews": [
+      "Easy everyday skirt.",
+      "Fit was accurate.",
+      "Good length and comfortable waistband.",
+      "Works well with blouses and knits."
+    ]
+  },
+  {
+    "product_id": "FN-TOP-005",
+    "title": "Champagne Satin Cami",
+    "reviews": [
+      "Nice top but fabric feels delicate.",
+      "Care instructions were not clear.",
+      "Looks elegant under a blazer.",
+      "I was worried about washing it."
+    ]
+  },
+  {
+    "product_id": "FN-COAT-006",
+    "title": "Camel Belted Wool Blend Coat",
+    "reviews": [
+      "Beautiful coat and good quality.",
+      "Warm and polished.",
+      "Fit was accurate.",
+      "Great winter layering piece."
+    ]
+  }
+]

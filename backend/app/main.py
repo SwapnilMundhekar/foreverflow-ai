@@ -195,6 +195,66 @@ def build_rag_evidence() -> List[Dict[str, Any]]:
     question = "What policies matter before promoting a fashion product with content gaps, return risk, or low stock?"
     return retrieve_policy_evidence(question, top_k=4)
 
+
+
+def load_reviews() -> List[Dict[str, Any]]:
+    return load_json("data/reviews.json")
+
+
+def analyse_review_text(reviews: List[str]) -> Dict[str, Any]:
+    combined_text = " ".join(reviews).lower()
+    themes = []
+    recommended_actions = []
+    risk_level = "low"
+
+    if "runs small" in combined_text or "size up" in combined_text or "tighter" in combined_text:
+        themes.append("Fit or sizing concern")
+        recommended_actions.append("Add a fit note recommending customers review sizing before purchase.")
+        risk_level = "high"
+
+    if "sleeves" in combined_text or "tailoring" in combined_text:
+        themes.append("Sleeve length or tailoring concern")
+        recommended_actions.append("Add sleeve length guidance to the product detail page.")
+        if risk_level != "high":
+            risk_level = "medium"
+
+    if "delicate" in combined_text or "washing" in combined_text or "care instructions" in combined_text:
+        themes.append("Fabric care concern")
+        recommended_actions.append("Add clearer care instructions and fabric handling guidance.")
+        if risk_level != "high":
+            risk_level = "medium"
+
+    if "true to size" in combined_text or "fit was accurate" in combined_text:
+        themes.append("Positive fit confidence")
+
+    if "premium" in combined_text or "quality" in combined_text:
+        themes.append("Positive quality signal")
+
+    if not themes:
+        themes.append("No major recurring review theme detected")
+
+    if not recommended_actions:
+        recommended_actions.append("No urgent product page update required.")
+
+    return {
+        "risk_level": risk_level,
+        "themes": themes,
+        "recommended_actions": recommended_actions
+    }
+
+
+def build_review_summary(review_record: Dict[str, Any]) -> Dict[str, Any]:
+    analysis = analyse_review_text(review_record.get("reviews", []))
+
+    return {
+        "product_id": review_record.get("product_id"),
+        "title": review_record.get("title"),
+        "reviews_analyzed": len(review_record.get("reviews", [])),
+        "risk_level": analysis["risk_level"],
+        "themes": analysis["themes"],
+        "recommended_actions": analysis["recommended_actions"]
+    }
+
 @app.get("/")
 def home() -> Dict[str, str]:
     return {
@@ -357,3 +417,29 @@ def ask_policy(request: AskPolicyRequest) -> Dict[str, Any]:
 @app.get("/integration-health")
 def integration_health() -> Dict[str, Any]:
     return get_integration_health()
+
+
+@app.get("/review-insights")
+def review_insights() -> Dict[str, Any]:
+    review_records = load_reviews()
+    insights = []
+    high_risk_count = 0
+    medium_risk_count = 0
+
+    for record in review_records:
+        summary = build_review_summary(record)
+        insights.append(summary)
+
+        if summary["risk_level"] == "high":
+            high_risk_count += 1
+        elif summary["risk_level"] == "medium":
+            medium_risk_count += 1
+
+    return {
+        "workflow": "Product Review Insights",
+        "products_analyzed": len(insights),
+        "high_risk_products": high_risk_count,
+        "medium_risk_products": medium_risk_count,
+        "business_value": "Surfaces recurring fit, fabric, care, and quality themes that can improve Shopify product pages and reduce avoidable returns.",
+        "insights": insights
+    }

@@ -74,3 +74,16 @@ def test_integration_health_endpoint():
     assert "NetSuite" in system_names
     assert "Retail Directions" in system_names
     assert "Infor" in system_names
+
+def test_review_insights_endpoint():
+    response = client.get("/review-insights")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data["workflow"] == "Product Review Insights"
+    assert data["products_analyzed"] == 6
+    assert "insights" in data
+    assert len(data["insights"]) == 6
+    assert data["high_risk_products"] >= 1
